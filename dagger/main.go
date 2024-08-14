@@ -8,9 +8,12 @@ import (
 	"github.com/Depado/daggo/dagger/internal/dagger"
 )
 
-const GOVERSION = "1.22"
+// Constants
 const BINARY = "daggo"
+const GOVERSION = "1.22"
+const IMAGE = "depado/" + BINARY
 
+// Caches
 var gomodCache = dag.CacheVolume(fmt.Sprintf("go-mod-%s", GOVERSION))
 var buildCache = dag.CacheVolume(fmt.Sprintf("go-build-%s", GOVERSION))
 
@@ -47,7 +50,7 @@ func (m *Daggo) Docker(ctx context.Context, source *dagger.Directory) *dagger.Co
 		WithLabel("org.opencontainers.image.title", BINARY).
 		WithLabel("org.opencontainers.image.version", "1.0").
 		WithLabel("org.opencontainers.image.created", time.Now().String()).
-		WithLabel("org.opencontainers.image.source", "https://github.com/depado/daggo").
+		WithLabel("org.opencontainers.image.source", "https://github.com/"+IMAGE).
 		WithLabel("org.opencontainers.image.licenses", "MIT").
 		WithFile(binPath, builder.File(fmt.Sprintf("/src/%s", BINARY))).
 		WithEntrypoint([]string{binPath, "serve", "--http=0.0.0.0:8080"})
@@ -56,7 +59,7 @@ func (m *Daggo) Docker(ctx context.Context, source *dagger.Directory) *dagger.Co
 func (m *Daggo) Publish(ctx context.Context, registry, username string, password *dagger.Secret, source *dagger.Directory) error {
 	_, err := m.Docker(ctx, source).
 		WithRegistryAuth(registry, username, password).
-		Publish(ctx, registry+"/"+"depado/daggo")
+		Publish(ctx, registry+"/"+IMAGE)
 	return err
 }
 
