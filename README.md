@@ -16,7 +16,7 @@ on my own, missing documentation or things I had to search in discord.
 ```sh
 $ mkdir dagger
 $ cd dagger
-$ go mod init github.com/Depado/daggo/dagger
+$ go mod init github.com/depado/daggo/dagger
 $ cd ..
 $ dagger init --sdk=go --source=dagger/
 ```

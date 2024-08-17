@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Depado/daggo/dagger/internal/dagger"
+	"github.com/depado/daggo/dagger/internal/dagger"
 )
 
 // Constants

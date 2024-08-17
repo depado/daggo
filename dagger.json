@@ -1,6 +1,6 @@
 {
   "name": "daggo",
   "sdk": "go",
-  "source": "dagger",
+  "source": ".dagger",
   "engineVersion": "v0.12.2"
 }
